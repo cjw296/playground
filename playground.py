@@ -8,3 +8,4 @@ def version_happiness():
         return ':-|'
     else:
         return ':-)'
+    return ':-O'
