@@ -6,6 +6,8 @@ authors = ["Chris Withers <chris@withers.org>"]
 
 [tool.poetry.dependencies]
 python = "*"
+sphinx = "^1.8"
+pkginfo = "^1.4"
 
 [tool.poetry.dev-dependencies]
 pytest-cov = "^2.6"
