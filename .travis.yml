@@ -19,7 +19,9 @@ install:
 - "poetry install"
 
 
-script: pytest --cov playground -s test.py
+script:
+- "pytest --cov playground -s test.py"
+- "git remote -v"
 
 after_success:
   - codecov
