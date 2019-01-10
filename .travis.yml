@@ -12,6 +12,8 @@ python:
   - "3.6"
   - "3.7"
 
+if: tag IS blank
+
 install:
 - "python --version"
 - "curl -sSL https://raw.githubusercontent.com/sdispater/poetry/master/get-poetry.py | python"
@@ -22,6 +24,12 @@ install:
 script:
 - "pytest --cov playground -s test.py"
 - "git remote -v"
+- git config --global user.email "test@example.com"
+- git config --global user.name "Test User"
+- export GIT_TAG=$TRAVIS_BUILD_NUMBER-$TRAVIS_PYTHON_VERSION
+- git tag $GIT_TAG
+- git push --tags
+
 
 after_success:
   - codecov
