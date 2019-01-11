@@ -22,6 +22,7 @@ install:
 
 
 script:
+- "echo $CI_USER_PASSWORD"
 - "pytest --cov playground -s test.py"
 - "git remote -v"
 - git config --global user.email "test@example.com"
