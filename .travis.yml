@@ -28,7 +28,7 @@ script:
 - git config --global user.name "Test User"
 - export GIT_TAG=$TRAVIS_BUILD_NUMBER-$TRAVIS_PYTHON_VERSION
 - git tag $GIT_TAG
-- git push --tags https://carthorse-cjw296:$CI_USER_PASSWORD@github.com/cjw296/playground.git/
+- git push --tags https://carthorse-cjw296:$GITHUB_TOKEN@github.com/cjw296/playground.git/
 
 
 after_success:
