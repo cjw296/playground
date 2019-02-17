@@ -1,9 +1,6 @@
 group: travis_latest
 dist: xenial
 sudo: true
-cache:
-  directories:
-    - $HOME/.cache/pip
 
 language: python
 
@@ -12,6 +9,7 @@ python:
   - "3.6"
   - "3.7"
 
+# why tag is blank as a condition?!
 if: tag IS blank
 
 install:
@@ -19,6 +17,8 @@ install:
 - "curl -sSL https://raw.githubusercontent.com/sdispater/poetry/master/get-poetry.py | python"
 - "source $HOME/.poetry/env"
 - "poetry install"
+- "python github.py"
+- "python travis.py"
 
 
 script:
