@@ -26,6 +26,7 @@ install:
 - "curl -sSL https://raw.githubusercontent.com/sdispater/poetry/master/get-poetry.py | python"
 - "source $HOME/.poetry/env"
 - "poetry install"
+- "python env.py"
 
 script:
 - "pytest --cov playground -s test.py"
