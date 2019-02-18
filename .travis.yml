@@ -9,7 +9,6 @@ if: tag IS blank
 
 python:
   - "2.7"
-  - "3.6"
   - "3.7"
 
 install:
@@ -18,8 +17,7 @@ install:
 - "source $HOME/.poetry/env"
 - "poetry install"
 
-stage:
-
+stages:
   - name: test
     if:  env(DO_RELEASE) != true
     script:
