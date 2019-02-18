@@ -15,7 +15,7 @@ else:
     response = travis.post('https://api.travis-ci.org/repo/cjw296%2Fplayground/requests', json={
       "request": {
         "message": "Releasing 0.1.2",
-        "branch": os.environ.get('TRAVIS_COMMIT'),
+        "branch": 'master',
         "config": {
           "env": {
             "DO_RELEASE": "true"
