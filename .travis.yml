@@ -7,10 +7,6 @@ language: python
 # don't build on tag pushes, since we created them!
 if: tag IS blank
 
-env:
-  global:
-    CACHE_NAME: coverage
-
 stages:
   - name: test
     if: env(DO_RELEASE) != true
