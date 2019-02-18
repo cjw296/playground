@@ -18,8 +18,9 @@ else:
         "branch": "master",
         "config": {
           "env": {
-            "DO_RELEASE": "yes"
+            "DO_RELEASE": "true"
           },
+          "after_success": [],
         }
       }
     })
