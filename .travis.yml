@@ -9,7 +9,7 @@ python:
   - "3.6"
   - "3.7"
 
-# why tag is blank as a condition?!
+# don't build on tag pushes, since we created them!
 if: tag IS blank
 
 install:
@@ -17,14 +17,12 @@ install:
 - "curl -sSL https://raw.githubusercontent.com/sdispater/poetry/master/get-poetry.py | python"
 - "source $HOME/.poetry/env"
 - "poetry install"
-- "python github.py"
-- "python travis.py"
-
 
 script:
 - "pytest --cov playground -s test.py"
-- "git remote -v"
-- "git tag"
+- "python github.py"
+#- "git remote -v"
+#- "git tag"
 #- git config --global user.email "test@example.com"
 #- git config --global user.name "Test User"
 #- export GIT_TAG=$TRAVIS_BUILD_NUMBER-$TRAVIS_PYTHON_VERSION
@@ -34,3 +32,11 @@ script:
 
 after_success:
   - codecov
+
+
+jobs:
+  include:
+    - stage: release
+      if: repo = cjw296/playground
+      python: 3.7
+      script: "python travis.py"
