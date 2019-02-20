@@ -18,6 +18,7 @@ jobs:
       - run:
           name: run tests
           command: |
+            source $HOME/.poetry/env
             poetry shell
             pytest --cov playground -s test.py
 
