@@ -1,0 +1,24 @@
+version: 2
+jobs:
+  build:
+    docker:
+      - image: python:3.7
+
+    working_directory: ~/repo
+
+    steps:
+      - checkout
+      - run:
+          name: install dependencies
+          command: |
+            curl -sSL https://raw.githubusercontent.com/sdispater/poetry/master/get-poetry.py | python
+            source $HOME/.poetry/env
+            poetry install
+
+      - run:
+          name: run tests
+          command: "pytest --cov playground -s test.py"
+
+      - store_artifacts:
+          path: test-reports
+          destination: test-reports
