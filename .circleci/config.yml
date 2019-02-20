@@ -17,7 +17,9 @@ jobs:
 
       - run:
           name: run tests
-          command: "pytest --cov playground -s test.py"
+          command: |
+            poetry shell
+            pytest --cov playground -s test.py
 
       - store_artifacts:
           path: test-reports
