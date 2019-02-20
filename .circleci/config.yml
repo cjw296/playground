@@ -19,8 +19,7 @@ jobs:
           name: run tests
           command: |
             source $HOME/.poetry/env
-            poetry shell
-            pytest --cov playground -s test.py
+            poetry run pytest --cov playground -s test.py
 
       - store_artifacts:
           path: test-reports
