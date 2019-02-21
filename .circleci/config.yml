@@ -35,7 +35,7 @@ workflows:
   build:
     jobs:
       - "python-2.7"
-      - "python-2.7"
+      - "python-3.7"
       - "coverage":
           requires:
             - "python-2.7"
