@@ -31,12 +31,12 @@ jobs:
 #            coverage combine
 #            coverage report --show-missing --skip-covered --fail-under=100
 #
-#workflows:
-#  version: 2
-#  build:
-#    jobs:
-#      - "python-2.7"
-#      - "python-3.7"
+workflows:
+  version: 2
+  build:
+    jobs:
+      - "python-2.7"
+      - "python-3.7"
 #      - "coverage":
 #          requires:
 #            - "python-2.7"
