@@ -11,8 +11,8 @@ run_tests: &run_tests
             poetry run pytest --cov playground -s test.py
 
 jobs:
-  <<: *run_tests
   "python-2.7":
+    <<: *run_tests
     docker:
       - image: python:2.7
 
