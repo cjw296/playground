@@ -1,29 +1,37 @@
-version: 2
-jobs:
-  build:
-    docker:
-      - image: python:3.7
+version: 2.0
 
-    working_directory: ~/repo
-
+run_tests: &run_tests
+#    working_directory: ~/repo
     steps:
       - checkout
       - run:
-          name: install dependencies
           command: |
             curl -sSL https://raw.githubusercontent.com/sdispater/poetry/master/get-poetry.py | python
             source $HOME/.poetry/env
             poetry install
-
-      - run:
-          name: run tests
-          command: |
-            source $HOME/.poetry/env
             poetry run pytest --cov playground -s test.py
 
-      - run:
-          name: check coverage
-          command: |
-            source $HOME/.poetry/env
-            poetry run coverage report --show-missing --skip-covered
+jobs:
+  "python-2.7":
+    <<: *run_tests
+    docker:
+      - image: python:2.7
 
+  "python-3.7":
+    <<: *run_tests
+    docker:
+      - image: python:3.7
+
+workflows:
+  version: 2
+  build:
+    jobs:
+      - "python-2.7"
+      - "python-3.7"
+#
+#      - run:
+#          name: check coverage
+#          command: |
+#            source $HOME/.poetry/env
+#            poetry run coverage report --show-missing --skip-covered
+#
