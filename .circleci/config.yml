@@ -15,9 +15,8 @@ run_tests: &run_tests
             python env.py
       - persist_to_workspace:
           root: coverage_output
-#          # Must be relative path from root
-#          paths:
-#            - echo-output
+          paths:
+            - coverage.*
 jobs:
   python-2.7:
     docker:
