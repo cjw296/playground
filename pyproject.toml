@@ -11,6 +11,7 @@ pkginfo = "^1.4"
 requests = "^2.21"
 
 [tool.poetry.dev-dependencies]
+more-itertools = "*"  # poetry bug?
 pytest = "^4"
 pytest-cov = "^2.6"
 codecov = "^2.0"
