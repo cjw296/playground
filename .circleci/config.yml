@@ -12,6 +12,7 @@ run_tests: &run_tests
             mkdir -p coverage_output
             export COVERAGE_FILE=coverage_output/coverage.$CIRCLE_BUILD_NUM
             poetry run pytest --cov playground -s test.py
+            ls coverage_output/*
             python env.py
       - persist_to_workspace:
           root: coverage_output
@@ -37,6 +38,7 @@ jobs:
       - run:
           command: |
             pip install coverage
+            ls coverage_output/*
             coverage combine coverage_output/
             coverage report --show-missing --skip-covered --fail-under=100
 
