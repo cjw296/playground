@@ -31,6 +31,7 @@ jobs:
     docker:
       - image: python:3.7
     steps:
+      - checkout
       - attach_workspace:
           at: coverage_output
       - run:
