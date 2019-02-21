@@ -35,6 +35,7 @@ jobs:
       - attach_workspace:
           at: coverage_output
       - run:
+          name: "check coverage"
           command: |
             pip install coverage
             coverage combine coverage_output/
