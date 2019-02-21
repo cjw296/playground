@@ -41,6 +41,17 @@ jobs:
             coverage combine coverage_output/
             coverage report --show-missing --skip-covered --fail-under=100
 
+  release:
+    docker:
+      - image: python:3.7
+    steps:
+      - checkout
+      - run:
+          name: "release"
+          command: |
+            git tag circle-$CIRCLE_BUILD_NUM
+            git push --tags
+
 workflows:
   version: 2
   build:
@@ -51,3 +62,6 @@ workflows:
           requires:
             - python-2.7
             - python-3.7
+      - release:
+          requires:
+            - coverage
