@@ -4,13 +4,20 @@ run_tests: &run_tests
     steps:
       - checkout
       - run:
+          name: "run tests"
           command: |
             curl -sSL https://raw.githubusercontent.com/sdispater/poetry/master/get-poetry.py | python
             source $HOME/.poetry/env
             poetry install
+            mkdir -p coverage_output
+            export COVERAGE_FILE=coverage_output/coverage.$CIRCLE_BUILD_NUM
             poetry run pytest --cov playground -s test.py
             python env.py
-
+      - persist_to_workspace:
+          root: coverage_output
+#          # Must be relative path from root
+#          paths:
+#            - echo-output
 jobs:
   python-2.7:
     docker:
@@ -26,11 +33,13 @@ jobs:
     docker:
       - image: python:3.7
     steps:
+      - attach_workspace:
+          at: coverage_output
       - run:
           command: |
             python env.py
             pip install coverage
-            coverage combine
+            coverage combine coverage_output/
             coverage report --show-missing --skip-covered --fail-under=100
 
 workflows:
