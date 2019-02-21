@@ -36,7 +36,6 @@ jobs:
           at: coverage_output
       - run:
           command: |
-            python env.py
             pip install coverage
             coverage combine coverage_output/
             coverage report --show-missing --skip-covered --fail-under=100
