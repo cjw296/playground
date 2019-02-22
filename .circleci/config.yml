@@ -53,9 +53,6 @@ jobs:
             source $HOME/.poetry/env
 #            pip install carthorse
 #            carthorse
-#            poetry publish --username chrisw --password $PYPI_PASS --build
-#            git tag circle-$CIRCLE_BUILD_NUM
-#            git push --tags
 
 workflows:
   version: 2
