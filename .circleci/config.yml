@@ -55,7 +55,6 @@ jobs:
 #            carthorse
 
 common: &common
-  jobs:
     - python-2.7
     - python-3.7
     - coverage:
@@ -66,8 +65,8 @@ common: &common
 workflows:
   version: 2
   master:
-    <<: *common
     jobs:
+      <<: *common
       - release:
           requires:
             - coverage
@@ -75,7 +74,8 @@ workflows:
             branches:
               only: master
   nightly:
-    <<: *common
+    jobs:
+      <<: *common
     triggers:
       - schedule:
           cron: "0 0 * * *"
