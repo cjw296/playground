@@ -49,11 +49,13 @@ jobs:
       - run:
           name: "Release"
           command: |
-#            curl -sSL https://raw.githubusercontent.com/sdispater/poetry/master/get-poetry.py | python
-#            source $HOME/.poetry/env
+            curl -sSL https://raw.githubusercontent.com/sdispater/poetry/master/get-poetry.py | python
+            source $HOME/.poetry/env
+            pip install carthorse
+            carthorse .circle/config.yml
 #            poetry publish --username chrisw --password $PYPI_PASS --build
-            git tag circle-$CIRCLE_BUILD_NUM
-            git push --tags
+#            git tag circle-$CIRCLE_BUILD_NUM
+#            git push --tags
 
 workflows:
   version: 2
@@ -71,3 +73,14 @@ workflows:
           filters:
             branches:
               only: master
+    triggers:
+      - schedule:
+          cron: "0 0 * * *"
+
+carthorse:
+  version-from: poetry
+  when:
+    - version-changed
+  actions:
+    - run: "poetry publish --username chrisw --password $POETRY_PASS --build"
+    - git-tag
