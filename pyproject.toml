@@ -19,16 +19,16 @@ pytest = "^4"
 pytest-cov = "^2.6"
 codecov = "^2.0"
 
-[tool.carthorse]
-version-from = "poetry"
-when = [
-   "version-changed"
-]
-action = [
-    { run = "poetry publish --username chrisw --password $POETRY_PASS --build"},
-    "git-tag"
-]
-
+#[tool.carthorse]
+#version-from = "poetry"
+#when = [
+#   "version-changed"
+#]
+#action = [
+#    { run = "poetry publish --username chrisw --password $POETRY_PASS --build"},
+#    "git-tag"
+#]
+#
 [build-system]
 requires = ["poetry>=0.12"]
 build-backend = "poetry.masonry.api"
