@@ -49,9 +49,9 @@ jobs:
       - run:
           name: "Release"
           command: |
-            curl -sSL https://raw.githubusercontent.com/sdispater/poetry/master/get-poetry.py | python
-            source $HOME/.poetry/env
-            poetry publish --username chrisw --password $PYPI_PASS --build
+#            curl -sSL https://raw.githubusercontent.com/sdispater/poetry/master/get-poetry.py | python
+#            source $HOME/.poetry/env
+#            poetry publish --username chrisw --password $PYPI_PASS --build
             git tag circle-$CIRCLE_BUILD_NUM
             git push --tags
 
