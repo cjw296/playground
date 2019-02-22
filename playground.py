@@ -10,7 +10,7 @@ def version_happiness():
     """
     if version_info.major == 2:
         return ':-('
-    # elif version_info.major == 7:
-    #     raise Exception('wut?')
+    elif version_info.major == 7:
+        raise Exception('wut?')
     else:
         return ':-)'
