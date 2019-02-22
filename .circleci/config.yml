@@ -4,7 +4,7 @@ run_tests: &run_tests
     steps:
       - checkout
       - run:
-          name: "run tests"
+          name: "Run tests"
           command: |
             curl -sSL https://raw.githubusercontent.com/sdispater/poetry/master/get-poetry.py | python
             source $HOME/.poetry/env
@@ -35,7 +35,7 @@ jobs:
       - attach_workspace:
           at: coverage_output
       - run:
-          name: "check coverage"
+          name: "Check coverage"
           command: |
             pip install coverage
             coverage combine coverage_output/
@@ -47,8 +47,11 @@ jobs:
     steps:
       - checkout
       - run:
-          name: "release"
+          name: "Release"
           command: |
+            curl -sSL https://raw.githubusercontent.com/sdispater/poetry/master/get-poetry.py | python
+            source $HOME/.poetry/env
+            poetry publish --username chrisw --password $PYPI_PASS --build
             git tag circle-$CIRCLE_BUILD_NUM
             git push --tags
 
@@ -65,3 +68,6 @@ workflows:
       - release:
           requires:
             - coverage
+          filters:
+            branches:
+              only: master
