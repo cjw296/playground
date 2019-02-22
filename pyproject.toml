@@ -3,6 +3,9 @@ name = "cjw296-playground"
 version = "0.1.0"
 description = ""
 authors = ["Chris Withers <chris@withers.org>"]
+packages = [
+    { include = "playground.py" },
+]
 
 [tool.poetry.dependencies]
 python = "*"
