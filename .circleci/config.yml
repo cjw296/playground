@@ -21,11 +21,11 @@ jobs:
     steps:
       - checkout
       - install-poetry
+      - run: "poetry install"
       - run:
           name: "Run tests"
           command: |
             python --version
-            poetry install
             mkdir -p coverage_output
             export COVERAGE_FILE=coverage_output/.coverage.$CIRCLE_BUILD_NUM
             poetry run pytest --cov playground -s test.py
