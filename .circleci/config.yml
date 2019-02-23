@@ -12,9 +12,9 @@ commands:
 
 jobs:
   run-tests:
-    parameters:
-      name:
-        type: string
+#    parameters:
+#      name:
+#        type: string
     docker:
       - image: << parameters.name >>
     steps:
