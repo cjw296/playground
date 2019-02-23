@@ -8,7 +8,8 @@ commands:
           command: |
             curl -sSL https://raw.githubusercontent.com/sdispater/poetry/master/get-poetry.py | python
             source $HOME/.poetry/env
-            echo 'export PATH="$HOME/.poetry/bin:$PATH"' > ~/.bashrc
+            echo 'export PATH=$HOME/.poetry/bin:$PATH' >> $BASH_ENV
+
 
 jobs:
   run-tests:
@@ -24,7 +25,6 @@ jobs:
           name: "Run tests"
           command: |
             python --version
-            source $HOME/.poetry/env
             poetry install
             mkdir -p coverage_output
             export COVERAGE_FILE=coverage_output/.coverage.$CIRCLE_BUILD_NUM
@@ -83,11 +83,11 @@ common: &common
 workflows:
   push:
     <<: *common
-#  periodic:
-#    <<: *common
-#    triggers:
-#      - schedule:
-#          cron: "0 0 * * *"
-#          filters:
-#            branches:
-#              only: master
+  periodic:
+    <<: *common
+    triggers:
+      - schedule:
+          cron: "0 0 * * *"
+          filters:
+            branches:
+              only: master
