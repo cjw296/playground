@@ -71,7 +71,7 @@ common: &common
 
 workflows:
   version: 2
-  master:
+  push:
     <<: *common
   periodic:
     <<: *common
