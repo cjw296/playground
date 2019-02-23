@@ -17,6 +17,7 @@ run_tests: &run_tests
       - run:
           name: "Run tests"
           command: |
+            python --version
             poetry install
             mkdir -p coverage_output
             export COVERAGE_FILE=coverage_output/.coverage.$CIRCLE_BUILD_NUM
@@ -28,17 +29,17 @@ run_tests: &run_tests
 jobs:
   python-27:
     docker:
-      - image: python:27
+      - image: python:2.7
     <<: *run_tests
 
   python-37:
     docker:
-      - image: python:37
+      - image: python:3.7
     <<: *run_tests
 
   coverage:
     docker:
-      - image: python:37
+      - image: python:3.7
     steps:
       - checkout
       - attach_workspace:
@@ -52,7 +53,7 @@ jobs:
 
   release:
     docker:
-      - image: python:37
+      - image: python:3.7
     steps:
       - checkout
       - install-poetry
