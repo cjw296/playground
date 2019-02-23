@@ -93,7 +93,6 @@ common: &common
 #            only: master
 
 workflows:
-  version: 2
   push:
     <<: *common
 #  periodic:
