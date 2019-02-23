@@ -2,7 +2,7 @@ version: 2.1
 
 environment:
   BASH_ENV: "~/.bashrc"
-  
+
 commands:
   install-poetry:
     steps:
@@ -12,8 +12,7 @@ commands:
             curl -sSL https://raw.githubusercontent.com/sdispater/poetry/master/get-poetry.py | python
             source $HOME/.poetry/env
             echo 'export PATH="$HOME/.poetry/bin:$PATH"' > ~/.bashrc
-
-run_tests: &run_tests
+  run-tests:
     steps:
       - checkout
       - install-poetry
@@ -30,16 +29,19 @@ run_tests: &run_tests
           root: coverage_output
           paths:
             - .coverage.*
+
 jobs:
   python-27:
     docker:
       - image: python:2.7
-    <<: *run_tests
+    steps:
+      - run-tests
 
   python-37:
     docker:
       - image: python:3.7
-    <<: *run_tests
+    steps:
+      - run-tests
 
   coverage:
     docker:
