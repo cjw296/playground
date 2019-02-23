@@ -19,6 +19,7 @@ run_tests: &run_tests
           name: "Run tests"
           command: |
             python --version
+            source ~/.bashrc
             poetry install
             mkdir -p coverage_output
             export COVERAGE_FILE=coverage_output/.coverage.$CIRCLE_BUILD_NUM
