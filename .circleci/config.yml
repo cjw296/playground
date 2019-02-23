@@ -1,13 +1,22 @@
-version: 2.0
+version: 2.1
+
+commands:
+  install-poetry:
+    steps:
+      - run:
+          name: "Install poetry"
+          command: |
+            curl -sSL https://raw.githubusercontent.com/sdispater/poetry/master/get-poetry.py | python
+            source $HOME/.poetry/env
+            echo 'export PATH="$HOME/.poetry/bin:$PATH"'
 
 run_tests: &run_tests
     steps:
       - checkout
+      - install-poetry
       - run:
           name: "Run tests"
           command: |
-            curl -sSL https://raw.githubusercontent.com/sdispater/poetry/master/get-poetry.py | python
-            source $HOME/.poetry/env
             poetry install
             mkdir -p coverage_output
             export COVERAGE_FILE=coverage_output/.coverage.$CIRCLE_BUILD_NUM
@@ -46,11 +55,11 @@ jobs:
       - image: python:3.7
     steps:
       - checkout
+      - install-poetry
       - run:
           name: "Release"
           command: |
-            curl -sSL https://raw.githubusercontent.com/sdispater/poetry/master/get-poetry.py | python
-            source $HOME/.poetry/env
+            poetry --help
 #            pip install carthorse
 #            carthorse
 
