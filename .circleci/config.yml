@@ -5,19 +5,24 @@ orbs:
 
 common: &common
   jobs:
+
     - playground/run-tests:
         name: python27
         image: python:2.7
     - playground/run-tests:
         name: python37
         image: python:3.7
+
     - playground/coverage:
+        name: coverage
         requires:
           - python27
           - python37
+
     - playground/release:
+        name: release
         requires:
-          - playground/coverage
+          - coverage
         filters:
           branches:
             only: master
