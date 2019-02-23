@@ -9,6 +9,22 @@ commands:
             curl -sSL https://raw.githubusercontent.com/sdispater/poetry/master/get-poetry.py | python
             source $HOME/.poetry/env
             echo 'export PATH=$HOME/.poetry/bin:$PATH' >> $BASH_ENV
+  run-with-coverage:
+    parameters:
+      image:
+        command: string
+    steps:
+      - run:
+          name: "Run Tests"
+          command: |
+            python --version
+            mkdir -p coverage_output
+            export COVERAGE_FILE=coverage_output/.coverage.$CIRCLE_BUILD_NUM
+            << parameters.command >>
+      - persist_to_workspace:
+          root: coverage_output
+          paths:
+            - .coverage.*
 
 
 jobs:
@@ -21,20 +37,13 @@ jobs:
     steps:
       - checkout
       - install-poetry
-      - run: "poetry install"
       - run:
-          name: "Run tests"
-          command: |
-            python --version
-            mkdir -p coverage_output
-            export COVERAGE_FILE=coverage_output/.coverage.$CIRCLE_BUILD_NUM
-            poetry run pytest --cov playground -s test.py
-      - persist_to_workspace:
-          root: coverage_output
-          paths:
-            - .coverage.*
+          name: "Install Project"
+          command: poetry install
+      - run-with-coverage:
+          command: poetry run pytest --cov playground -s test.py
 
-  coverage:
+  check-coverage:
     docker:
       - image: python:3.7
     steps:
@@ -48,7 +57,7 @@ jobs:
             coverage combine coverage_output/
             coverage report --show-missing --skip-covered --fail-under=100
 
-  release:
+  release-when-version-changes:
     docker:
       - image: python:3.7
     steps:
@@ -69,13 +78,13 @@ common: &common
     - run-tests:
         name: python37
         image: python:3.7
-    - coverage:
+    - check-coverage:
         requires:
           - python27
           - python37
-    - release:
+    - release-when-version-changes:
         requires:
-          - coverage
+          - check-coverage
         filters:
           branches:
             only: master
