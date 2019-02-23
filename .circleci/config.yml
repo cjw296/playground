@@ -54,25 +54,30 @@ jobs:
 #            pip install carthorse
 #            carthorse
 
+common: &common
+  jobs:
+    - python-2.7
+    - python-3.7
+    - coverage:
+        requires:
+          - python-2.7
+          - python-3.7
+    - release:
+        requires:
+          - coverage
+        filters:
+          branches:
+            only: master
+
 workflows:
   version: 2
   master:
-    jobs:
-      - python-2.7
-      - python-3.7
-      - coverage:
-          requires:
-            - python-2.7
-            - python-3.7
-      - release:
-          requires:
-            - coverage
+    <<: *common
+  periodic:
+    <<: *common
+    triggers:
+      - schedule:
+          cron: "0 0 * * *"
           filters:
             branches:
               only: master
-#    triggers:
-#      - schedule:
-#          cron: "0 0 * * *"
-#          filters:
-#            branches:
-#              only: master
