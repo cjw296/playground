@@ -11,41 +11,41 @@ commands:
             echo 'export PATH="$HOME/.poetry/bin:$PATH"' > ~/.bashrc
 
 jobs:
-  run-tests:
-    parameters:
-      image:
-        type:string
-    docker:
-      - image: << parameters.name >>
-    steps:
-      - checkout
-      - install-poetry
-      - run:
-          name: "Run tests"
-          command: |
-            python --version
-            source $HOME/.poetry/env
-            poetry install
-            mkdir -p coverage_output
-            export COVERAGE_FILE=coverage_output/.coverage.$CIRCLE_BUILD_NUM
-            poetry run pytest --cov playground -s test.py
-      - persist_to_workspace:
-          root: coverage_output
-          paths:
-            - .coverage.*
-
-  python-27:
-    docker:
-      - image: python:2.7
-    steps:
-      - run-tests
-
-  python-37:
-    docker:
-      - image: python:3.7
-    steps:
-      - run-tests
-
+#  run-tests:
+#    parameters:
+#      image:
+#        type:string
+#    docker:
+#      - image: << parameters.name >>
+#    steps:
+#      - checkout
+#      - install-poetry
+#      - run:
+#          name: "Run tests"
+#          command: |
+#            python --version
+#            source $HOME/.poetry/env
+#            poetry install
+#            mkdir -p coverage_output
+#            export COVERAGE_FILE=coverage_output/.coverage.$CIRCLE_BUILD_NUM
+#            poetry run pytest --cov playground -s test.py
+#      - persist_to_workspace:
+#          root: coverage_output
+#          paths:
+#            - .coverage.*
+#
+#  python-27:
+#    docker:
+#      - image: python:2.7
+#    steps:
+#      - run-tests
+#
+#  python-37:
+#    docker:
+#      - image: python:3.7
+#    steps:
+#      - run-tests
+#
   coverage:
     docker:
       - image: python:3.7
