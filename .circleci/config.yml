@@ -16,7 +16,7 @@ jobs:
       image:
         type: string
     docker:
-      - image: "<< parameters.name >>"
+      - image: << parameters.image >>
     steps:
       - checkout
       - install-poetry
