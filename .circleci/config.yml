@@ -11,8 +11,8 @@ commands:
             echo 'export PATH=$HOME/.poetry/bin:$PATH' >> $BASH_ENV
   run-with-coverage:
     parameters:
-      image:
-        command: string
+      command:
+        type: string
     steps:
       - run:
           name: "Run Tests"
