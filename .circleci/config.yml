@@ -12,7 +12,14 @@ commands:
             curl -sSL https://raw.githubusercontent.com/sdispater/poetry/master/get-poetry.py | python
             source $HOME/.poetry/env
             echo 'export PATH="$HOME/.poetry/bin:$PATH"' > ~/.bashrc
+
+jobs:
   run-tests:
+    parameters:
+      image:
+        type:string
+    docker:
+      - image: << parameters.name >>
     steps:
       - checkout
       - install-poetry
@@ -20,7 +27,6 @@ commands:
           name: "Run tests"
           command: |
             python --version
-            source ~/.bashrc
             poetry install
             mkdir -p coverage_output
             export COVERAGE_FILE=coverage_output/.coverage.$CIRCLE_BUILD_NUM
@@ -30,7 +36,6 @@ commands:
           paths:
             - .coverage.*
 
-jobs:
   python-27:
     docker:
       - image: python:2.7
@@ -72,12 +77,15 @@ jobs:
 
 common: &common
   jobs:
-    - python-27
+    - run-tests:
+        name: python:2.7
+    - run-tests:
+        name: python:3.7
     - python-37
     - coverage:
         requires:
-          - python-27
-          - python-37
+          - python:2.7
+          - python:3.7
     - release:
         requires:
           - coverage
