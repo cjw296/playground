@@ -12,11 +12,11 @@ commands:
 
 jobs:
   run-tests:
-#    parameters:
-#      name:
-#        type: string
+    parameters:
+      image:
+        type: string
     docker:
-      - image: << parameters.name >>
+      - image: << parameters.image >>
     steps:
       - checkout
       - install-poetry
@@ -33,19 +33,7 @@ jobs:
           root: coverage_output
           paths:
             - .coverage.*
-#
-#  python-27:
-#    docker:
-#      - image: python:2.7
-#    steps:
-#      - run-tests
-#
-#  python-37:
-#    docker:
-#      - image: python:3.7
-#    steps:
-#      - run-tests
-#
+
   coverage:
     docker:
       - image: python:3.7
@@ -76,20 +64,22 @@ jobs:
 common: &common
   jobs:
     - run-tests:
-        name: python:2.7
+        name: python27
+        image: python:2.7
     - run-tests:
-        name: python:3.7
-#    - coverage:
-#        requires:
-#          - python27
-#          - python37
-#    - release:
-#        requires:
-#          - coverage
-#        filters:
-#          branches:
-#            only: master
-#
+        name: python37
+        image: python:3.7
+    - coverage:
+        requires:
+          - python27
+          - python37
+    - release:
+        requires:
+          - coverage
+        filters:
+          branches:
+            only: master
+
 workflows:
   push:
     <<: *common
