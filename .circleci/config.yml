@@ -26,19 +26,19 @@ run_tests: &run_tests
           paths:
             - .coverage.*
 jobs:
-  python-2.7:
+  python-27:
     docker:
-      - image: python:2.7
+      - image: python:27
     <<: *run_tests
 
-  python-3.7:
+  python-37:
     docker:
-      - image: python:3.7
+      - image: python:37
     <<: *run_tests
 
   coverage:
     docker:
-      - image: python:3.7
+      - image: python:37
     steps:
       - checkout
       - attach_workspace:
@@ -52,7 +52,7 @@ jobs:
 
   release:
     docker:
-      - image: python:3.7
+      - image: python:37
     steps:
       - checkout
       - install-poetry
@@ -65,12 +65,12 @@ jobs:
 
 common: &common
   jobs:
-    - python-2.7
-    - python-3.7
+    - python-27
+    - python-37
     - coverage:
         requires:
-          - python-2.7
-          - python-3.7
+          - python-27
+          - python-37
     - release:
         requires:
           - coverage
