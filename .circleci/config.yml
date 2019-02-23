@@ -11,28 +11,28 @@ commands:
             echo 'export PATH="$HOME/.poetry/bin:$PATH"' > ~/.bashrc
 
 jobs:
-#  run-tests:
-#    parameters:
-#      image:
-#        type:string
-#    docker:
-#      - image: << parameters.name >>
-#    steps:
-#      - checkout
-#      - install-poetry
-#      - run:
-#          name: "Run tests"
-#          command: |
-#            python --version
-#            source $HOME/.poetry/env
-#            poetry install
-#            mkdir -p coverage_output
-#            export COVERAGE_FILE=coverage_output/.coverage.$CIRCLE_BUILD_NUM
-#            poetry run pytest --cov playground -s test.py
-#      - persist_to_workspace:
-#          root: coverage_output
-#          paths:
-#            - .coverage.*
+  run-tests:
+    parameters:
+      image:
+        type: string
+    docker:
+      - image: "<< parameters.name >>"
+    steps:
+      - checkout
+      - install-poetry
+      - run:
+          name: "Run tests"
+          command: |
+            python --version
+            source $HOME/.poetry/env
+            poetry install
+            mkdir -p coverage_output
+            export COVERAGE_FILE=coverage_output/.coverage.$CIRCLE_BUILD_NUM
+            poetry run pytest --cov playground -s test.py
+      - persist_to_workspace:
+          root: coverage_output
+          paths:
+            - .coverage.*
 #
 #  python-27:
 #    docker:
@@ -73,22 +73,6 @@ jobs:
 #            pip install carthorse
 #            carthorse
 
-  sayhello: # defines a parameterized job
-    description: A job that does very little other than demonstrate what a parameterized job looks like
-    parameters:
-      saywhat:
-        description: "To whom shall we say hello?"
-        default: "World"
-        type: string
-    machine: true
-    steps:
-      - run: echo "Hello << parameters.saywhat >>"
-
-workflows:
-  build:
-    jobs:
-      - sayhello: # invokes the parameterized job
-          saywhat: Everyone
 #common: &common
 #  jobs:
 #    - run-tests:
@@ -108,11 +92,11 @@ workflows:
 #          branches:
 #            only: master
 #
-#workflows:
-#  push:
-#    jobs:
-#      - run-tests:
-#          image: python:2.7
+workflows:
+  push:
+    jobs:
+      - run-tests:
+          image: python:2.7
 #  periodic:
 #    <<: *common
 #    triggers:
