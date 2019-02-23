@@ -13,10 +13,10 @@ commands:
 jobs:
   run-tests:
     parameters:
-      image:
+      name:
         type: string
     docker:
-      - image: << parameters.image >>
+      - image: << parameters.name >>
     steps:
       - checkout
       - install-poetry
@@ -76,9 +76,9 @@ jobs:
 common: &common
   jobs:
     - run-tests:
-        image: python:2.7
+        name: python:2.7
     - run-tests:
-        image: python:3.7
+        name: python:3.7
 #    - coverage:
 #        requires:
 #          - python27
