@@ -8,7 +8,7 @@ commands:
           command: |
             curl -sSL https://raw.githubusercontent.com/sdispater/poetry/master/get-poetry.py | python
             source $HOME/.poetry/env
-            echo 'export PATH="$HOME/.poetry/bin:$PATH"'
+            echo 'export PATH="$HOME/.poetry/bin:$PATH"' > ~/.bash_profile
 
 run_tests: &run_tests
     steps:
