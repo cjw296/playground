@@ -22,7 +22,7 @@ codecov = "^2.0"
 #[tool.carthorse]
 #version-from = "poetry"
 #when = [
-#   "version-changed"
+#   "version-has-no-tag"
 #]
 #action = [
 #    { run = "poetry publish --username chrisw --password $POETRY_PASS --build"},
