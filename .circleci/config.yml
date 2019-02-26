@@ -1,7 +1,7 @@
 version: 2.1
 
 orbs:
-  playground: cjw296/playground-orb@dev:first
+  playground: cjw296/playground-orb@dev:2
 
 common: &common
   jobs:
