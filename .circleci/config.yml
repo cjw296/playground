@@ -7,24 +7,13 @@ common: &common
   jobs:
 
     - playground/run-tests:
-        name: python27
-        image: circleci/python:2.7
-        command: poetry run pytest --cov playground -s test.py
-    - playground/run-tests:
         name: python37
         image: circleci/python:3.7
         command: poetry run pytest --cov playground -s test.py
-
     - playground/coverage:
         name: coverage
-        requires:
-          - python27
-          - python37
-
     - playground/release:
         name: release
-        requires:
-          - coverage
         filters:
           branches:
             only: master
