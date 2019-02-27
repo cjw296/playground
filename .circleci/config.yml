@@ -3,7 +3,8 @@ version: 2.1
 orbs:
   playground: cjw296/playground-orb@dev:2
 
-command: &command poetry run pytest --cov playground -s test.py
+command: &command
+  command: poetry run pytest --cov playground -s test.py
 
 common: &common
   jobs:
