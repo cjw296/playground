@@ -18,7 +18,7 @@ source_suffix = '.rst'
 master_doc = 'index'
 project = 'cjw296-playground'
 copyright = '2017 - %s Chris Withers' % datetime.datetime.now().year
-version = release = pkg_resources.get_distribution(project).name
+version = release = pkg_resources.get_distribution(project).version
 exclude_patterns = [
     'description.rst',
     '_build',
